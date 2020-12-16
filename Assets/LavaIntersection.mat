@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Flame
-  m_Shader: {fileID: -6465566751694194690, guid: 7e142cca075624d49bad3e7c6795eff6,
+  m_Name: LavaIntersection
+  m_Shader: {fileID: -6465566751694194690, guid: a9ff6b6835e8c7444bee020aacb2b0b8,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,10 +20,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_56D5A898:
-        m_Texture: {fileID: 2800000, guid: 8ba1921151ebcb6428459d84501796d5, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -53,10 +49,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_1893E082: 5
-    - Vector1_91E701A2: 1.2
-    - Vector1_C2AC79D5: 0.2
-    - Vector1_EFD5D54F: 4
+    - Vector1_2730BCEA: 0.005
+    - Vector1_4B437615: 0.8
+    - Vector1_71C118BA: 100
+    - Vector1_924261CF: 0.5
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -79,14 +75,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_8F224936: {r: 127.999985, g: 14.743454, b: 0, a: 0}
-    - Vector2_87FB1ADE: {r: -0.3, g: -0.5, b: 0, a: 0}
-    - Vector2_B7842094: {r: 0, g: -0.4, b: 0, a: 0}
+    - Color_FC5AB971: {r: 683.5601, g: 25.05194, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
---- !u!114 &3897109356408778748
+--- !u!114 &9099626070129556888
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
