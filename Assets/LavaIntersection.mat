@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LavaIntersection
-  m_Shader: {fileID: -6465566751694194690, guid: a9ff6b6835e8c7444bee020aacb2b0b8,
+  m_Shader: {fileID: -6465566751694194690, guid: 49d227386061a9b4fb47eea5d1a84e95,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -50,8 +50,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_2730BCEA: 0.005
-    - Vector1_4B437615: 0.8
-    - Vector1_71C118BA: 100
+    - Vector1_4B437615: 0.85
+    - Vector1_71C118BA: 300
     - Vector1_924261CF: 0.5
     - _AlphaClip: 0
     - _Blend: 0
@@ -75,7 +75,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_FC5AB971: {r: 683.5601, g: 25.05194, b: 0, a: 0}
+    - Color_FC5AB971: {r: 766.9961, g: 14.01413, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
