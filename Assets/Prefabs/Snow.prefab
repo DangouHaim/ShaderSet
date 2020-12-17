@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 200
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4732,8 +4732,8 @@ ParticleSystemRenderer:
   m_SortingOrder: 0
   m_RenderMode: 2
   m_SortMode: 0
-  m_MinParticleSize: 0.13
-  m_MaxParticleSize: 0.13
+  m_MinParticleSize: 0.14
+  m_MaxParticleSize: 0.14
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -4778,7 +4778,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373732455653971014}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: -0.0044, y: 0.0154, z: 0.0015}
+  m_LocalPosition: {x: -0.0048, y: 0.0154, z: -0.0031}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6227016678096770426}
@@ -4854,7 +4854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373732455747924657}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0556, y: 0.0031, z: 0.0327}
+  m_LocalPosition: {x: 0.0311, y: 0.0012, z: 0.0327}
   m_LocalScale: {x: 0.013245, y: 0.013245, z: 0.013245}
   m_Children:
   - {fileID: 1373732455408969461}

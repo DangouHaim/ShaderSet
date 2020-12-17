@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -1414,7 +1414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be76e5f14cfee674cb30b491fb72b09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boost: 3.5
+  boost: 1
   positionLerpTime: 0.2
   mouseSensitivityCurve:
     serializedVersion: 2
@@ -1964,11 +1964,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Snow
-      objectReference: {fileID: 0}
-    - target: {fileID: 6931487833957001065, guid: b65cec48b59265c4a8760ad175e988ee,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6227016678096770426, guid: b65cec48b59265c4a8760ad175e988ee,
         type: 3}
