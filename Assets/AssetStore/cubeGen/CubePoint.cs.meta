@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: d27a9bd8fd9a64540ab9380404e3c9d5
+labels:
+- cubegen
+- cubemap
+- generator
+- system
+- editor
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
