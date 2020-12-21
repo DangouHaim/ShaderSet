@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4487171064656843839
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -20,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CampfireFlame
-  m_Shader: {fileID: -6465566751694194690, guid: 7e142cca075624d49bad3e7c6795eff6,
+  m_Name: Portal
+  m_Shader: {fileID: -6465566751694194690, guid: c29e38da91ac7144093bf7f9996c6473,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -33,8 +20,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_56D5A898:
-        m_Texture: {fileID: 2800000, guid: 8ba1921151ebcb6428459d84501796d5, type: 3}
+    - Texture2D_E4A8952A:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -66,10 +53,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_1893E082: 5
-    - Vector1_91E701A2: 1.2
-    - Vector1_C2AC79D5: 0.1
-    - Vector1_EFD5D54F: 4
+    - Vector1_AFA4698F: 3.38
+    - Vector1_B029788D: 0.5
+    - Vector1_D0D1DD17: 3.37
+    - Vector1_DD00473F: 20.97
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -92,10 +79,21 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_8F224936: {r: 126.50715, g: 14.571504, b: 0, a: 0}
-    - Vector2_87FB1ADE: {r: -0.3, g: -0.5, b: 0, a: 0}
-    - Vector2_B7842094: {r: 0, g: -0.4, b: 0, a: 0}
+    - Color_9BADE4F2: {r: 63.999992, g: 40.5445, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+--- !u!114 &5249794923739133709
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1

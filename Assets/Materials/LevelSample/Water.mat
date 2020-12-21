@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4487171064656843839
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -20,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CampfireFlame
-  m_Shader: {fileID: -6465566751694194690, guid: 7e142cca075624d49bad3e7c6795eff6,
+  m_Name: Water
+  m_Shader: {fileID: -6465566751694194690, guid: 8830dae6715247d4d879d86bb3d87469,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -33,10 +20,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_56D5A898:
-        m_Texture: {fileID: 2800000, guid: 8ba1921151ebcb6428459d84501796d5, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -66,10 +49,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_1893E082: 5
-    - Vector1_91E701A2: 1.2
-    - Vector1_C2AC79D5: 0.1
-    - Vector1_EFD5D54F: 4
+    - Vector1_2646CA24: 0.1
+    - Vector1_30A80AED: 0.65
+    - Vector1_40AB8BB4: 0.75
+    - Vector1_5DAB138E: 0.81
+    - Vector1_68BA7B64: 0.6
+    - Vector1_9065949F: 1
+    - Vector1_98A0D8DE: 0.5
+    - Vector1_98E9206: 5
+    - Vector1_98FEC0D6: 5
+    - Vector1_A9DCFE51: 19.72
+    - Vector1_E4711E30: 5
+    - Vector1_FD4D8B07: 0.1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -92,10 +83,26 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_8F224936: {r: 126.50715, g: 14.571504, b: 0, a: 0}
-    - Vector2_87FB1ADE: {r: -0.3, g: -0.5, b: 0, a: 0}
-    - Vector2_B7842094: {r: 0, g: -0.4, b: 0, a: 0}
+    - Color_3FCB07DE: {r: 0, g: 1.0904303, b: 5.3403125, a: 0}
+    - Color_87C4ECA5: {r: 0, g: 2.792157, b: 8, a: 0}
+    - Color_AC0FC5F6: {r: 0, g: 0.2313726, b: 1, a: 0}
+    - Color_CEA78BF8: {r: 0.010471203, g: 1.0785339, b: 1.9999998, a: 0}
+    - Color_FD59FB66: {r: 0, g: 3.267015, b: 4, a: 0}
+    - Vector2_3CD1B128: {r: 0.05, g: -0.01, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+--- !u!114 &5831158830035949566
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
