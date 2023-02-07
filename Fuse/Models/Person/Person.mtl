@@ -1,0 +1,74 @@
+# Exported from Fuse 1.3.0
+
+newmtl Hat
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd Person_Hat_diffuse.png
+map_Ks Person_Hat_specular.png
+bump Person_Hat_normal.png
+map_Ns Person_Hat_gloss.png
+
+newmtl Glove
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd Person_Glove_diffuse.png
+map_Ks Person_Glove_specular.png
+bump Person_Glove_normal.png
+map_Ns Person_Glove_gloss.png
+
+newmtl Bottom
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd Person_Bottom_diffuse.png
+map_Ks Person_Bottom_specular.png
+bump Person_Bottom_normal.png
+map_Ns Person_Bottom_gloss.png
+
+newmtl Top
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd Person_Top_diffuse.png
+map_Ks Person_Top_specular.png
+bump Person_Top_normal.png
+map_Ns Person_Top_gloss.png
+
+newmtl Shoes
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd Person_Shoes_diffuse.png
+map_Ks Person_Shoes_specular.png
+bump Person_Shoes_normal.png
+map_Ns Person_Shoes_gloss.png
+
+newmtl Body
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd Person_Body_diffuse.png
+map_Ks Person_Body_specular.png
+bump Person_Body_normal.png
+map_Ns Person_Body_gloss.png
+
