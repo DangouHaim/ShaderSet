@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PersonController : MonoBehaviour
 {
@@ -8,8 +9,16 @@ public class PersonController : MonoBehaviour
     public float RotationSpeed = 600;
 
     private Animator animator;
+    private ActionType currentAction;
     private float currentSpeed = 0;
     private bool isAccelerated = false;
+    private bool isActionCompleted = false;
+
+    private enum ActionType
+    {
+        None,
+        PickUp,
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +37,7 @@ public class PersonController : MonoBehaviour
         ApplyMovement();
         ApplyRotation();
         ApplyAnimation();
+        ApplyAction();
         CalculateCurrentMovementSpeed();
     }
 
@@ -43,7 +53,50 @@ public class PersonController : MonoBehaviour
 
     private bool IsMoving()
     {
-        return GetMovementDirection() != Vector3.zero;
+        return GetMovementDirection() != Vector3.zero
+            && !IsActionAnimationPlayed()
+            && currentAction == ActionType.None;
+    }
+
+    private bool IsActionAnimationPlayed()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("LiftingRight")
+            || animator.GetCurrentAnimatorStateInfo(0).IsName("LiftingLeft");
+    }
+
+    private void ApplyRotation()
+    {
+        var direction = GetMovementDirection();
+
+        if (IsMoving())
+        {
+            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, RotationSpeed * Time.deltaTime);
+        }
+    }
+
+    private void ApplyMovement()
+    {
+        transform.Translate(transform.forward * currentSpeed * Time.deltaTime, Space.World);
+    }
+
+    private void ApplyAction()
+    {
+        if (IsActionAnimationPlayed())
+        {
+            isActionCompleted = true;
+        }
+        else if (isActionCompleted)
+        {
+            currentAction = ActionType.None;
+            isActionCompleted = false;
+        }
+
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            currentAction = ActionType.PickUp;
+        }
     }
 
     private bool IsAccelerated()
@@ -65,23 +118,6 @@ public class PersonController : MonoBehaviour
         }
 
         return isAccelerated;
-    }
-
-    private void ApplyRotation()
-    {
-        var direction = GetMovementDirection();
-
-        if (IsMoving())
-        {
-            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, RotationSpeed * Time.deltaTime);
-        }
-    }
-
-    private void ApplyMovement()
-    {
-        transform.Translate(transform.forward * currentSpeed * Time.deltaTime, Space.World);
     }
 
     private void CalculateCurrentMovementSpeed()
@@ -120,5 +156,7 @@ public class PersonController : MonoBehaviour
     {
         animator.SetBool("Walk", IsMoving());
         animator.SetBool("Run", IsMoving() && IsAccelerated());
+        animator.SetBool("PickUpRight", !isActionCompleted && !IsActionAnimationPlayed()
+            && currentSpeed == 0 && currentAction == ActionType.PickUp);
     }
 }
