@@ -1,4 +1,8 @@
-﻿using System;
+﻿using System.Net.Http.Headers;
+using System.Security.AccessControl;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PersonController : MonoBehaviour
@@ -7,9 +11,16 @@ public class PersonController : MonoBehaviour
     public float MovingSmooth = 0.05f;
     public float AccelerationMultiplier = 2;
     public float RotationSpeed = 600;
+    public List<Transform> PickableObjects = new List<Transform>();
+
+    private const string PickableObjectTag = "PickableObject";
+    private const string LeftHandTag = "LeftHand";
+    private const string RightHandTag = "RightHand";
 
     private Animator animator;
     private ActionType currentAction;
+    private Transform LeftHand;
+    private Transform RightHand;
     private float currentSpeed = 0;
     private bool isAccelerated = false;
     private bool isActionCompleted = false;
@@ -17,13 +28,16 @@ public class PersonController : MonoBehaviour
     private enum ActionType
     {
         None,
-        PickUp,
+        PickUpRight,
+        PickUpLeft,
     }
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        LeftHand = GameObject.FindGameObjectWithTag(LeftHandTag).transform;
+        RightHand = GameObject.FindGameObjectWithTag(RightHandTag).transform;
     }
 
     // Update is called once per frame
@@ -41,6 +55,28 @@ public class PersonController : MonoBehaviour
         CalculateCurrentMovementSpeed();
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == PickableObjectTag)
+        {
+            if (!PickableObjects.Contains(other.gameObject.transform))
+            {
+                PickableObjects.Add(other.gameObject.transform);
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == PickableObjectTag)
+        {
+            if (PickableObjects.Contains(other.gameObject.transform))
+            {
+                PickableObjects.Remove(other.gameObject.transform);
+            }
+        }
+    }
+
     private Vector3 GetMovementDirection()
     {
         var vertical = Input.GetAxis("Vertical");
@@ -49,6 +85,13 @@ public class PersonController : MonoBehaviour
         Vector3.Normalize(direction);
 
         return direction;
+    }
+
+    private bool IsRightHandPickUp()
+    {
+        var target = PickableObjects.First().position;
+
+        return Vector3.Distance(RightHand.position, target) < Vector3.Distance(LeftHand.position, target);
     }
 
     private bool IsMoving()
@@ -93,9 +136,11 @@ public class PersonController : MonoBehaviour
             isActionCompleted = false;
         }
 
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.E) && PickableObjects.Any())
         {
-            currentAction = ActionType.PickUp;
+            currentAction = IsRightHandPickUp()
+                ? ActionType.PickUpRight
+                : ActionType.PickUpLeft;
         }
     }
 
@@ -154,9 +199,11 @@ public class PersonController : MonoBehaviour
 
     private void ApplyAnimation()
     {
+        var actionAvailable = !isActionCompleted && !IsActionAnimationPlayed() && currentSpeed == 0;
+
         animator.SetBool("Walk", IsMoving());
         animator.SetBool("Run", IsMoving() && IsAccelerated());
-        animator.SetBool("PickUpRight", !isActionCompleted && !IsActionAnimationPlayed()
-            && currentSpeed == 0 && currentAction == ActionType.PickUp);
+        animator.SetBool("PickUpRight", actionAvailable && currentAction == ActionType.PickUpRight);
+        animator.SetBool("PickUpLeft", actionAvailable && currentAction == ActionType.PickUpLeft);
     }
 }

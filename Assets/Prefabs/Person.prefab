@@ -19292,6 +19292,8 @@ GameObject:
   - component: {fileID: 2617722581346136543}
   - component: {fileID: 5394757169670462629}
   - component: {fileID: 1834260944}
+  - component: {fileID: 1027648586}
+  - component: {fileID: 1027648585}
   m_Layer: 0
   m_Name: Person
   m_TagString: Untagged
@@ -19357,6 +19359,36 @@ MonoBehaviour:
   MovingSmooth: 0.05
   AccelerationMultiplier: 2
   RotationSpeed: 500
+  PickableObjects: []
+--- !u!54 &1027648586
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301361112351065036}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1027648585
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301361112351065036}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.6, z: 0.7}
+  m_Center: {x: 0, y: 1, z: 0.5}
 --- !u!1 &1312495614166595497
 GameObject:
   m_ObjectHideFlags: 0
@@ -21443,7 +21475,7 @@ GameObject:
   - component: {fileID: 6189902286809703783}
   m_Layer: 0
   m_Name: mixamorig:LeftHand
-  m_TagString: Untagged
+  m_TagString: LeftHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21570,7 +21602,7 @@ GameObject:
   - component: {fileID: 3630341545648551612}
   m_Layer: 0
   m_Name: mixamorig:RightHand
-  m_TagString: Untagged
+  m_TagString: RightHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
