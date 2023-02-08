@@ -7,7 +7,7 @@ TagManager:
   - Cubemap
   - RightHand
   - LeftHand
-  - PickableObject
+  - PickAbleObject
   layers:
   - Default
   - TransparentFX

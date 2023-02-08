@@ -11,9 +11,11 @@ public class PersonController : MonoBehaviour
     public float MovingSmooth = 0.05f;
     public float AccelerationMultiplier = 2;
     public float RotationSpeed = 600;
-    public List<Transform> PickableObjects = new List<Transform>();
+    public float PickupAnimationOffset = 0.2f;
+    public List<Transform> PickAbleObjects = new List<Transform>();
+    public Transform CurrentPickedItem = null;
 
-    private const string PickableObjectTag = "PickableObject";
+    private const string PickAbleObjectTag = "PickAbleObject";
     private const string LeftHandTag = "LeftHand";
     private const string RightHandTag = "RightHand";
 
@@ -22,6 +24,7 @@ public class PersonController : MonoBehaviour
     private Transform LeftHand;
     private Transform RightHand;
     private float currentSpeed = 0;
+    private float currentAnimationPlayTime = 0;
     private bool isAccelerated = false;
     private bool isActionCompleted = false;
 
@@ -57,22 +60,22 @@ public class PersonController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == PickableObjectTag)
+        if (other.gameObject.tag == PickAbleObjectTag)
         {
-            if (!PickableObjects.Contains(other.gameObject.transform))
+            if (!PickAbleObjects.Contains(other.gameObject.transform))
             {
-                PickableObjects.Add(other.gameObject.transform);
+                PickAbleObjects.Add(other.gameObject.transform);
             }
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == PickableObjectTag)
+        if (other.gameObject.tag == PickAbleObjectTag)
         {
-            if (PickableObjects.Contains(other.gameObject.transform))
+            if (PickAbleObjects.Contains(other.gameObject.transform))
             {
-                PickableObjects.Remove(other.gameObject.transform);
+                PickAbleObjects.Remove(other.gameObject.transform);
             }
         }
     }
@@ -89,7 +92,7 @@ public class PersonController : MonoBehaviour
 
     private bool IsRightHandPickUp()
     {
-        var target = PickableObjects.First().position;
+        var target = PickAbleObjects.First().position;
 
         return Vector3.Distance(RightHand.position, target) < Vector3.Distance(LeftHand.position, target);
     }
@@ -136,12 +139,42 @@ public class PersonController : MonoBehaviour
             isActionCompleted = false;
         }
 
-        if (Input.GetKeyUp(KeyCode.E) && PickableObjects.Any())
+        if (Input.GetKeyUp(KeyCode.E) && PickAbleObjects.Any() && currentAction == ActionType.None)
         {
             currentAction = IsRightHandPickUp()
                 ? ActionType.PickUpRight
                 : ActionType.PickUpLeft;
+            
+            if (CurrentPickedItem == null)
+            {
+                CurrentPickedItem = PickAbleObjects.First();
+                PickAbleObjects.Remove(CurrentPickedItem);
+            }
         }
+
+        RunActions();
+    }
+
+    private void RunActions()
+    {
+        PickupItem();
+    }
+
+    private void PickupItem()
+    {
+        if (CurrentPickedItem == null
+            || !IsActionAnimationPlayed()
+            || currentAnimationPlayTime < PickupAnimationOffset)
+        {
+            return;
+        }
+
+        CurrentPickedItem.parent = currentAction == ActionType.PickUpRight
+            ? RightHand
+            : LeftHand;
+
+        CurrentPickedItem.localPosition = Vector3.up * 0.15f + Vector3.forward * 0.05f;
+        CurrentPickedItem = null;
     }
 
     private bool IsAccelerated()
@@ -200,6 +233,7 @@ public class PersonController : MonoBehaviour
     private void ApplyAnimation()
     {
         var actionAvailable = !isActionCompleted && !IsActionAnimationPlayed() && currentSpeed == 0;
+        currentAnimationPlayTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 
         animator.SetBool("Walk", IsMoving());
         animator.SetBool("Run", IsMoving() && IsAccelerated());

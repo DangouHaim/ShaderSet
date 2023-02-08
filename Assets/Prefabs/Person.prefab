@@ -19359,7 +19359,9 @@ MonoBehaviour:
   MovingSmooth: 0.05
   AccelerationMultiplier: 2
   RotationSpeed: 500
-  PickableObjects: []
+  PickupAnimationOffset: 0.2
+  PickAbleObjects: []
+  CurrentPickedItem: {fileID: 0}
 --- !u!54 &1027648586
 Rigidbody:
   m_ObjectHideFlags: 0
