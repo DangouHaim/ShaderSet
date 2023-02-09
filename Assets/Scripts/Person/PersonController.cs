@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class PersonController : MonoBehaviour
 {
+    public float PlayerSpeed = 0;
+    public float PlayerSpeedEfficiency = 0;
     public float MovementSpeed = 0.5f;
     public float MovingSmooth = 0.05f;
     public float AccelerationMultiplier = 2;
     public float RotationSpeed = 600;
     public float PickupAnimationOffset = 0.2f;
+    public float MinMovementAnimationSpeed = 0.2f;
     public List<Transform> PickAbleObjects = new List<Transform>();
     public Transform CurrentPickedItem = null;
 
@@ -20,9 +23,11 @@ public class PersonController : MonoBehaviour
     private Animator animator;
     private CharacterController controller;
     private ActionType currentAction;
-    private Transform LeftHand;
-    private Transform RightHand;
-    private float currentSpeed = 0;
+    private Transform leftHand;
+    private Transform rightHand;
+    private Transform player;
+    private Vector3 lastPlayerPosition;
+    private float predictedSpeed = 0;
     private float currentAnimationPlayTime = 0;
     private bool isAccelerated = false;
     private bool isActionCompleted = false;
@@ -38,15 +43,17 @@ public class PersonController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        controller = gameObject.AddComponent<CharacterController>();
-        LeftHand = GameObject.FindGameObjectWithTag(LeftHandTag).transform;
-        RightHand = GameObject.FindGameObjectWithTag(RightHandTag).transform;
+        controller = gameObject.GetComponent<CharacterController>();
+        leftHand = GameObject.FindGameObjectWithTag(LeftHandTag).transform;
+        rightHand = GameObject.FindGameObjectWithTag(RightHandTag).transform;
+        player = gameObject.transform;
+        lastPlayerPosition = player.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -56,6 +63,8 @@ public class PersonController : MonoBehaviour
         ApplyAnimation();
         ApplyAction();
         CalculateCurrentMovementSpeed();
+        CalculateActualSpeed();
+        CalculateMovementAnimationSpeed();
     }
 
     void OnTriggerEnter(Collider other)
@@ -94,7 +103,7 @@ public class PersonController : MonoBehaviour
     {
         var target = PickAbleObjects.First().position;
 
-        return Vector3.Distance(RightHand.position, target) < Vector3.Distance(LeftHand.position, target);
+        return Vector3.Distance(rightHand.position, target) < Vector3.Distance(leftHand.position, target);
     }
 
     private bool IsMoving()
@@ -102,12 +111,6 @@ public class PersonController : MonoBehaviour
         return GetMovementDirection() != Vector3.zero
             && !IsActionAnimationPlayed()
             && currentAction == ActionType.None;
-    }
-
-    private bool IsActionAnimationPlayed()
-    {
-        return animator.GetCurrentAnimatorStateInfo(0).IsName("LiftingRight")
-            || animator.GetCurrentAnimatorStateInfo(0).IsName("LiftingLeft");
     }
 
     private void ApplyRotation()
@@ -125,7 +128,7 @@ public class PersonController : MonoBehaviour
     private void ApplyMovement()
     {
         var moveVector = transform.forward;
-        controller.Move(moveVector * currentSpeed * Time.deltaTime);
+        controller.Move(moveVector * predictedSpeed * Time.deltaTime);
 
         if (moveVector != Vector3.zero)
         {
@@ -176,8 +179,8 @@ public class PersonController : MonoBehaviour
         }
 
         CurrentPickedItem.parent = currentAction == ActionType.PickUpRight
-            ? RightHand
-            : LeftHand;
+            ? rightHand
+            : leftHand;
 
         CurrentPickedItem.localPosition = Vector3.up * 0.15f + Vector3.forward * 0.05f;
         CurrentPickedItem = null;
@@ -212,33 +215,71 @@ public class PersonController : MonoBehaviour
                 ? MovementSpeed * AccelerationMultiplier
                 : MovementSpeed;
 
-            if (currentSpeed < speed)
+            if (predictedSpeed < speed)
             {
-                currentSpeed += MovingSmooth;
+                predictedSpeed += MovingSmooth;
             }
 
-            if (currentSpeed > speed)
+            if (predictedSpeed > speed)
             {
-                currentSpeed -= MovingSmooth;
+                predictedSpeed -= MovingSmooth;
             }
         }
         else
         {
-            if (currentSpeed > 0)
+            if (predictedSpeed > 0)
             {
-                currentSpeed -= MovingSmooth;
+                predictedSpeed -= MovingSmooth;
             }
 
-            if (currentSpeed < MovingSmooth)
+            if (predictedSpeed < MovingSmooth)
             {
-                currentSpeed = 0;
+                predictedSpeed = 0;
             }
         }
     }
 
+    private void CalculateActualSpeed()
+    {
+        if (predictedSpeed == 0)
+        {
+            PlayerSpeedEfficiency = 1;
+            return;
+        }
+
+        PlayerSpeed = Vector3.Distance(lastPlayerPosition, player.position);
+        PlayerSpeedEfficiency = PlayerSpeed / (predictedSpeed * Time.deltaTime);
+
+        lastPlayerPosition = player.position;
+    }
+
+    private bool IsActionAnimationPlayed()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("LiftingRight")
+            || animator.GetCurrentAnimatorStateInfo(0).IsName("LiftingLeft");
+    }
+
+    private bool IsMovementAnimationPlayed()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("Walking")
+            || animator.GetCurrentAnimatorStateInfo(0).IsName("Running");
+    }
+
+    private void CalculateMovementAnimationSpeed()
+    {
+        if (!IsMovementAnimationPlayed())
+        {
+            return;
+        }
+
+        animator.speed = PlayerSpeedEfficiency < MinMovementAnimationSpeed
+            ? MinMovementAnimationSpeed
+            : PlayerSpeedEfficiency;
+    }
+
     private void ApplyAnimation()
     {
-        var actionAvailable = !isActionCompleted && !IsActionAnimationPlayed() && currentSpeed == 0;
+        var actionAvailable = !isActionCompleted && !IsActionAnimationPlayed() && predictedSpeed == 0;
         currentAnimationPlayTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 
         animator.SetBool("Walk", IsMoving());
