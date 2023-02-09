@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Headers;
-using System.Security.AccessControl;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,6 +18,7 @@ public class PersonController : MonoBehaviour
     private const string RightHandTag = "RightHand";
 
     private Animator animator;
+    private CharacterController controller;
     private ActionType currentAction;
     private Transform LeftHand;
     private Transform RightHand;
@@ -39,6 +38,7 @@ public class PersonController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        controller = gameObject.AddComponent<CharacterController>();
         LeftHand = GameObject.FindGameObjectWithTag(LeftHandTag).transform;
         RightHand = GameObject.FindGameObjectWithTag(RightHandTag).transform;
     }
@@ -124,7 +124,13 @@ public class PersonController : MonoBehaviour
 
     private void ApplyMovement()
     {
-        transform.Translate(transform.forward * currentSpeed * Time.deltaTime, Space.World);
+        var moveVector = transform.forward;
+        controller.Move(moveVector * currentSpeed * Time.deltaTime);
+
+        if (moveVector != Vector3.zero)
+        {
+            transform.forward = moveVector;
+        }
     }
 
     private void ApplyAction()
