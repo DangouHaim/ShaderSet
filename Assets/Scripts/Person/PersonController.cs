@@ -12,7 +12,7 @@ public class PersonController : MonoBehaviour
     public float AccelerationMultiplier = 2;
     public float RotationSpeed = 600;
     public float PickupAnimationOffset = 0.2f;
-    public float MinMovementAnimationSpeed = 0.5f;
+    public float MinMovementAnimationSpeed = 0.3f;
     public bool StopMovementAnimationOnObstacles = true;
     public List<Transform> PickAbleObjects = new List<Transform>();
     public Transform CurrentPickedItem = null;
