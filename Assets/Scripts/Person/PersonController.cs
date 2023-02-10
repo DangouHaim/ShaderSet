@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,13 +12,15 @@ public class PersonController : MonoBehaviour
     public float AccelerationMultiplier = 2;
     public float RotationSpeed = 600;
     public float PickupAnimationOffset = 0.2f;
-    public float MinMovementAnimationSpeed = 0.2f;
+    public float MinMovementAnimationSpeed = 0.5f;
+    public bool StopMovementAnimationOnObstacles = true;
     public List<Transform> PickAbleObjects = new List<Transform>();
     public Transform CurrentPickedItem = null;
 
     private const string PickAbleObjectTag = "PickAbleObject";
     private const string LeftHandTag = "LeftHand";
     private const string RightHandTag = "RightHand";
+    private const float ActionAnimationSpeed = 1.5f;
 
     private Animator animator;
     private CharacterController controller;
@@ -243,7 +245,9 @@ public class PersonController : MonoBehaviour
     {
         if (predictedSpeed == 0)
         {
-            PlayerSpeedEfficiency = 1;
+            PlayerSpeedEfficiency = IsActionAnimationPlayed()
+                ? ActionAnimationSpeed
+                : 1;
             return;
         }
 
@@ -251,6 +255,11 @@ public class PersonController : MonoBehaviour
         PlayerSpeedEfficiency = PlayerSpeed / (predictedSpeed * Time.deltaTime);
 
         lastPlayerPosition = player.position;
+    }
+
+    private bool IsMovementAfficient()
+    {
+        return PlayerSpeedEfficiency > 0;
     }
 
     private bool IsActionAnimationPlayed()
@@ -267,6 +276,12 @@ public class PersonController : MonoBehaviour
 
     private void CalculateMovementAnimationSpeed()
     {
+        if (!IsMovementAfficient())
+        {
+            animator.speed = 1;
+            return;
+        }
+
         if (!IsMovementAnimationPlayed())
         {
             return;
@@ -282,8 +297,8 @@ public class PersonController : MonoBehaviour
         var actionAvailable = !isActionCompleted && !IsActionAnimationPlayed() && predictedSpeed == 0;
         currentAnimationPlayTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 
-        animator.SetBool("Walk", IsMoving());
-        animator.SetBool("Run", IsMoving() && IsAccelerated());
+        animator.SetBool("Walk", IsMoving() && IsMovementAfficient());
+        animator.SetBool("Run", IsMoving() && IsAccelerated() && IsMovementAfficient());
         animator.SetBool("PickUpRight", actionAvailable && currentAction == ActionType.PickUpRight);
         animator.SetBool("PickUpLeft", actionAvailable && currentAction == ActionType.PickUpLeft);
     }
