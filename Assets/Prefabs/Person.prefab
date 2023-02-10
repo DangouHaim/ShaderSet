@@ -19364,6 +19364,7 @@ MonoBehaviour:
   RotationSpeed: 500
   PickupAnimationOffset: 0.2
   MinMovementAnimationSpeed: 0.1
+  StopMovementAnimationOnObstacles: 1
   PickAbleObjects: []
   CurrentPickedItem: {fileID: 0}
 --- !u!54 &1027648586
