@@ -21,6 +21,7 @@ public class PersonController : MonoBehaviour
     private const string LeftHandTag = "LeftHand";
     private const string RightHandTag = "RightHand";
     private const float ActionAnimationSpeed = 1.5f;
+    private const float GravityValue = -9.81f;
 
     private Animator animator;
     private CharacterController controller;
@@ -29,6 +30,7 @@ public class PersonController : MonoBehaviour
     private Transform rightHand;
     private Transform player;
     private Vector3 lastPlayerPosition;
+    private Vector3 playerVelocity;
     private float predictedSpeed = 0;
     private float currentAnimationPlayTime = 0;
     private bool isAccelerated = false;
@@ -61,6 +63,7 @@ public class PersonController : MonoBehaviour
     void FixedUpdate()
     {
         ApplyMovement();
+        ApplyGravity();
         ApplyRotation();
         ApplyAnimation();
         ApplyAction();
@@ -136,6 +139,18 @@ public class PersonController : MonoBehaviour
         {
             transform.forward = moveVector;
         }
+    }
+
+    private void ApplyGravity()
+    {
+        var groundedPlayer = controller.isGrounded;
+        if (groundedPlayer && playerVelocity.y < 0)
+        {
+            playerVelocity.y = 0f;
+        }
+
+        playerVelocity.y += GravityValue * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
     }
 
     private void ApplyAction()
@@ -251,10 +266,14 @@ public class PersonController : MonoBehaviour
             return;
         }
 
-        PlayerSpeed = Vector3.Distance(lastPlayerPosition, player.position);
+        var playerPosition = player.position;
+        playerPosition.y = 0;
+        lastPlayerPosition.y = 0;
+
+        PlayerSpeed = Vector3.Distance(lastPlayerPosition, playerPosition);
         PlayerSpeedEfficiency = PlayerSpeed / (predictedSpeed * Time.deltaTime);
 
-        lastPlayerPosition = player.position;
+        lastPlayerPosition = playerPosition;
     }
 
     private bool IsMovementAfficient()
